@@ -1,26 +1,25 @@
 #include <stdio.h>
 #include <string.h>
-int Prefix(char *s, int *pi){
-    int lenS = strlen(s);
+int Prefix(char *s, unsigned long long lenS, int *pi){
     int t = 0;
     pi[0] = 0;
-    for(int i = 1; i < lenS; i++)
-    {
-        while(t > 0 && s[t] != s[i])
+    int i = 1;
+    while( i < lenS){
+        while(t > 0 && s[t] != s[i]){
             t = pi[t-1];
-
+        }
         if(s[t] == s[i]) t++;
         pi[i] = t;
+        i++;
     }
 }
-
 int KMPSubst(char *s, char *T){
-    int lenS = strlen(s), lenT = strlen(T);
+    unsigned long long lenS = strlen(s), lenT = strlen(T);
     int pi[lenS];
-    Prefix(s, pi);
+    Prefix(s, lenS, pi);
     int q = 0;
     unsigned long long k=0;
-    while(k< lenT){
+    while(k < lenT){
         while(q > 0 && s[q] != T[k])
             q = pi[q-1];
         if(s[q] == T[k]) {
@@ -30,12 +29,14 @@ int KMPSubst(char *s, char *T){
             return 0;
         }
         if(q == strlen(s))
-            k = k+1-lenS;
+            q=pi[q-1];
         k++;
     }
     return 1;
 }
+
 int main(int argc,char **argv){
+    //char *S = argv[1], *T = argv[2];
     char S[100000], T[100000];
     scanf("%s", &S);
     scanf("%s", &T);
