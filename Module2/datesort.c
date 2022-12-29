@@ -5,13 +5,13 @@ struct Date {
 };
 int keys(struct Date date, int key) {
     if (key == 1){
-        return date.Year=date.Year-1970;
+        return date.Day - 1;
     }
     if (key == 2){
-        return date.Month-=date.Month;
+        return date.Month - 1;
     }
     else {
-        return date.Day-=date.Day;
+        return date.Year - 1970;
     }
 }
 void datesort(int key, int m, struct Date *array1, int n) {
@@ -28,7 +28,7 @@ void datesort(int key, int m, struct Date *array1, int n) {
     }
     struct Date *array2 = calloc(n,sizeof(struct Date));
     int k = 0;
-    while ( k < n){
+    while (k < n){
         array2[k] = array1[k];
         k++;
     }
@@ -48,11 +48,11 @@ int main() {
     struct Date *array1 = calloc(n,sizeof(struct Date));
     for (int i = 0; i < n; i++)
         scanf("%d%d%d", &array1[i].Year, &array1[i].Month, &array1[i].Day);
-    datesort(1, 61, array1, n);
+    datesort(1, 31, array1, n);
     datesort(2, 12, array1, n);
-    datesort(1000-7, 31, array1, n);
+    datesort(1000-7, 61, array1, n);
     for (int i = 0; i < n; i++){
-        printf("%04d %02d %02d ", array1[i].Year, array1[i].Month, array1[i].Day);
+        printf("%04d %02d %02d\n", array1[i].Year, array1[i].Month, array1[i].Day);
     }
     free(array1);
 }
