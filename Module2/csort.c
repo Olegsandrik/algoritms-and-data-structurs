@@ -20,7 +20,7 @@ int sep(unsigned long long n, char *src, char **scr1){
         }
         if(konecstr){
             j++;
-            scr1[j]=calloc(1000,sizeof(char));
+            scr1[j]=calloc(100,sizeof(char));
             counter=0;
             konecstr=false;
         }
@@ -31,7 +31,7 @@ int sep(unsigned long long n, char *src, char **scr1){
 }
 
 void csort(char *src, char *dest) {
-    char** scr1 = calloc(1000,sizeof(char*));
+    char** scr1 = calloc(100,sizeof(char*));
     unsigned long long n=strlen(src);
     int j=sep(n, src, scr1);
     int *count=calloc(j+1, sizeof(int));
@@ -50,7 +50,7 @@ void csort(char *src, char *dest) {
         }
         i--;
     }
-    char** scr2 = calloc(1000,sizeof(char*));
+    char** scr2 = calloc(100,sizeof(char*));
     int e=0;
     while (e < N){
         scr2[count[e]] = scr1[e];
@@ -69,13 +69,16 @@ void csort(char *src, char *dest) {
         k++;
         s++;
     }
+    dest[k-1]='\0';
     free(scr1);
-    free(scr2);
+    for(int i=0;i<N;i++){
+        free(scr2[i]);
+    }
 }
 
 int main(int argc, char **argv){
-    char* dest=calloc(1000,sizeof(char));
-    char* src=calloc(1000,sizeof(char));
+    char* dest=calloc(100,sizeof(char));
+    char* src=calloc(100,sizeof(char));
     gets(src);
     csort(src,dest);
     printf("%s",dest);
