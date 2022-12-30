@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <iso646.h>
 #include <malloc.h>
 #include <stdbool.h>
 int compare (char *a, char *b){
@@ -46,26 +45,28 @@ void csort(char *src, char *dest) {
         }
         i--;
     }
-    for (int i=0; i < N ; i ++){
-        d[count[i]] = b[i];
+    int e=0;
+    while (e < N){
+        d[count[e]] = b[e];
+        e++;
     }
     int k=0;
-    for (int i=0;i<N;i++){
-        for (int j=0;j<strlen(d[i]);j++){
-            dest[k]=d[i][j];
+    int s=0;
+    while (s<N){
+        int j=0;
+        while (j<strlen(d[s])){
+            dest[k]=d[s][j];
             k++;
+            j++;
         }
         dest[k]=' ';
         k++;
+        s++;
     }
-    //dest[k-1]='\0';
-    //for(int i=0;i<N;i++){
-    //        free(d[i]);
-    //    }
     free(b);
     free(d);
 }
-int main(){
+int main(int argc, char **argv){
     char* dest=calloc(10000,sizeof(char));
     char* src=calloc(10000,sizeof(char));
     gets(src);
