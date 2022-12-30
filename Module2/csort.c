@@ -9,10 +9,10 @@ int compare (char *a, char *b){
     int ans=ans1-ans2;
     return ans;
 }
-void csort(char *src, char *dest){
+void csort(char *src, char *dest) {
     char** b = calloc(10000,sizeof(char*));
     char** d = calloc(10000,sizeof(char*));
-    int k=-1;
+    int j=-1;
     unsigned long long n=strlen(src);
     bool konecstr=true;
     int counter=0;
@@ -22,56 +22,48 @@ void csort(char *src, char *dest){
             continue;
         }
         if(konecstr){
-            k++;
-            b[k]=calloc(10000,sizeof(char));
+            j++;
+            b[j]=calloc(10000,sizeof(char));
             counter=0;
             konecstr=false;
         }
-        b[k][counter]=src[q];
+        b[j][counter]=src[q];
         counter++;
     }
-    int *count=calloc(k+1, sizeof(int));
-    int N=k+1;
-    int j=N-1;
-    while (j>0){
-        int i=j-1;
-        while (i>-1){
-            if (compare(b[i],b[j])) {
-                count[j]=count[j]+1;
-            }
-            else{
-                count[i]=count[i]+1;
-            }
-            i--;
-        }
-        j--;
-    }
+    int *count=calloc(j+1, sizeof(int));
+    int N=j+1,i;
+    for (i=N-1; i>=1;i--)
+        for(j=i-1; j>=0; j--)
+            if (compare(b[i],b[j])==-1)
+                count[j]++;
+            else
+                count[i]++;
     for (int i=0; i < N ; i ++){
         d[count[i]] = b[i];
     }
-    int q=0;
+    int k=0;
     for (int i=0;i<N;i++){
         for (int j=0;j<strlen(d[i]);j++){
             dest[k]=d[i][j];
-            q++;
+            k++;
         }
-        dest[q]=' ';
-        q++;
+        dest[k]=' ';
+        k++;
     }
-    dest[q-1]='\0';
+    dest[k-1]='\0';
     for(int i=0;i<N;i++){
         free(d[i]);
     }
     free(b);
     free(d);
-    free(count);
 }
-int main(int argc, char** argv) {
-    char* dest=malloc(10000*sizeof(char));
-    char* src=malloc(10000*sizeof(char));
+
+int main(){
+    char* dest=calloc(10000,sizeof(char));
+    char* src=calloc(10000,sizeof(char));
     gets(src);
     csort(src,dest);
-    printf("%s",dest);
+    printf("%s\n",dest);
     free(dest);
     free(src);
     return 0;
