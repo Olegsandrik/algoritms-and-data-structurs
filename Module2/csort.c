@@ -9,8 +9,7 @@ int compare (char *a, char *b){
     return ans;
 }
 void csort(char *src, char *dest) {
-    char** b = calloc(10000,sizeof(char*));
-    char** d = calloc(10000,sizeof(char*));
+    char** scr1 = calloc(10000,sizeof(char*));
     int j=-1;
     unsigned long long n=strlen(src);
     bool konecstr=true;
@@ -22,11 +21,11 @@ void csort(char *src, char *dest) {
         }
         if(konecstr){
             j++;
-            b[j]=calloc(10000,sizeof(char));
+            scr1[j]=calloc(10000,sizeof(char));
             counter=0;
             konecstr=false;
         }
-        b[j][counter]=src[q];
+        scr1[j][counter]=src[q];
         counter++;
     }
     int *count=calloc(j+1, sizeof(int));
@@ -35,7 +34,7 @@ void csort(char *src, char *dest) {
     while(i>=1){
         int j=i-1;
         while (j>=0){
-            if (compare(b[i],b[j])<0){
+            if (compare(scr1[i],scr1[j])<0){
                 count[j]=count[j]+1;
             }
             else{
@@ -45,17 +44,18 @@ void csort(char *src, char *dest) {
         }
         i--;
     }
+    char** scr2 = calloc(10000,sizeof(char*));
     int e=0;
     while (e < N){
-        d[count[e]] = b[e];
+        scr2[count[e]] = scr1[e];
         e++;
     }
     int k=0;
     int s=0;
     while (s<N){
         int j=0;
-        while (j<strlen(d[s])){
-            dest[k]=d[s][j];
+        while (j<strlen(scr2[s])){
+            dest[k]=scr2[s][j];
             k++;
             j++;
         }
@@ -63,15 +63,15 @@ void csort(char *src, char *dest) {
         k++;
         s++;
     }
-    free(b);
-    free(d);
+    free(scr1);
+    free(scr2);
 }
 int main(int argc, char **argv){
     char* dest=calloc(10000,sizeof(char));
     char* src=calloc(10000,sizeof(char));
     gets(src);
     csort(src,dest);
-    printf("%s\n",dest);
+    printf("%s",dest);
     free(dest);
     free(src);
     return 0;
