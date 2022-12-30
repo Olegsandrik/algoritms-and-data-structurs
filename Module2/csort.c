@@ -71,12 +71,11 @@ void csort(char *src, char *dest) {
     }
     dest[k-1]='\0';
     free(count);
-    free(scr1);
-    for(int i=0;i<N-1;i++){
-        free(scr1[i]);
-    }
-    for(int i=0;i<N;i++){
+    for(int i=0;i<(sizeof(scr2)/sizeof(scr2[0]));i++){
         free(scr2[i]);
+    }
+    for(int i=0;i<(sizeof(scr1)/sizeof(scr1[0]));i++){
+        free(scr1[i]);
     }
 }
 
