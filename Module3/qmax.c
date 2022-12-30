@@ -95,19 +95,8 @@ int main(){
     while(i < n){
         char command[7];
         scanf("%s", command);
-        if(!strcmp("ENQ", command)) {
-            long long x;
-            scanf("%lld", &x);
-            enqueue(&stack, x);
-            continue;
-        }
-        else if(!strcmp("DEQ", command)) {
+        if(!strcmp("DEQ", command)) {
             printf("%lld\n", dequeue(&stack).value);
-            continue;
-        }
-        else if(!strcmp("EMPTY", command)) {
-            if(doubleStackEmpty(stack)) printf("true\n");
-            else printf("false\n");
             continue;
         }
         else if(!strcmp("MAX", command)) {
@@ -117,11 +106,25 @@ int main(){
             }
             if(!stackEmpty1(stack) and !stackEmpty2(stack)) {
                 printf("%lld\n", max(stack.data[stack.top1 - 1].max, stack.data[stack.top2 + 1].max));
+                continue;
             }
             else {
                 printf("%lld\n", stack.data[stack.top2 + 1].max);
+                continue;
             }
         }
+        else if(!strcmp("ENQ", command)) {
+            long long x;
+            scanf("%lld", &x);
+            enqueue(&stack, x);
+            continue;
+        }
+        else if(!strcmp("EMPTY", command)) {
+            if(doubleStackEmpty(stack)) printf("true\n");
+            else printf("false\n");
+            continue;
+        }
+
         i++;
     }
     free(stack.data);
