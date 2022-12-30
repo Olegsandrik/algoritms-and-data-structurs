@@ -31,13 +31,21 @@ void csort(char *src, char *dest) {
         counter++;
     }
     int *count=calloc(j+1, sizeof(int));
-    int N=j+1,i;
-    for (i=N-1; i>=1;i--)
-        for(j=i-1; j>=0; j--)
-            if (compare(b[i],b[j])==-1)
-                count[j]++;
-            else
-                count[i]++;
+    int N=j+1;
+    int i=N-1;
+    while(i>=1){
+        int j=i-1;
+        while (j>=0){
+            if (compare(b[i],b[j])<0){
+                count[j]=count[j]+1;
+            }
+            else{
+                count[i]=count[i]+1;
+            }
+            j--;
+        }
+        i--;
+    }
     for (int i=0; i < N ; i ++){
         d[count[i]] = b[i];
     }
@@ -50,14 +58,13 @@ void csort(char *src, char *dest) {
         dest[k]=' ';
         k++;
     }
-    dest[k-1]='\0';
-    for(int i=0;i<N;i++){
-        free(d[i]);
-    }
+    //dest[k-1]='\0';
+    //for(int i=0;i<N;i++){
+    //        free(d[i]);
+    //    }
     free(b);
     free(d);
 }
-
 int main(){
     char* dest=calloc(10000,sizeof(char));
     char* src=calloc(10000,sizeof(char));
