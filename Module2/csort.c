@@ -9,7 +9,9 @@ int compare (char *a, char *b){
     return ans;
 }
 
-int sep(unsigned long long n, char *src, char **scr1){
+void csort(char *src, char *dest) {
+    char** scr1 = calloc(10000,sizeof(char*));
+    unsigned long long n=strlen(src);
     int j=-1;
     bool konecstr=true;
     int counter=0;
@@ -27,18 +29,11 @@ int sep(unsigned long long n, char *src, char **scr1){
         scr1[j][counter]=src[q];
         counter++;
     }
-    return j;
-}
-
-void csort(char *src, char *dest) {
-    char** scr1 = calloc(10000,sizeof(char*));
-    unsigned long long n=strlen(src);
-    int j=sep(n, src, scr1);
-    int count[j+1];
-    for (int o=0; o<j+1; o++){
-        count[o]=0;
-    }
-    //int *count=calloc(j+1, sizeof(int));
+    //int count[j+1];
+    //for (int o=0; o<j+1; o++){
+        //count[o]=0;
+    //}
+    int *count=calloc(j+1, sizeof(int));
     int N=j+1;
     int i=N-1;
     while(i>=1){
@@ -74,8 +69,12 @@ void csort(char *src, char *dest) {
         s++;
     }
     dest[k-1]='\0';
-    for(int i=0;i<N;i++){
+    free(count);
+    for(int i=0;i<(sizeof(scr2)/sizeof(scr2[0]));i++){
         free(scr2[i]);
+    }
+    for(int i=0;i<(sizeof(scr1)/sizeof(scr1[0]));i++){
+        free(scr1[i]);
     }
     free(scr2);
     free(scr1);
