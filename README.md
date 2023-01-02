@@ -1,3 +1,3 @@
 # algoritms-and-data-structurs
 BMSTU
-HELLO! My name is Alexandr. I am programmer, who study in BMSTU!!!
+Дарова-дарова-привет. Если кратко, то АиСД на Сишке от ученика бомонки
